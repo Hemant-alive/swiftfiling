@@ -25,7 +25,16 @@ Route::get('/admin', function () {
 Auth::routes();
 Route::get('admin/dashboard', 'admin\DashboardController@index');
 
-//
+# Admin Panel Routes
+Route::get('admin/users/create', 'UserController@create');
+Route::post('admin/store', 'UserController@store');
+
+Route::get('admin/userList', 'UserController@index');
+/*Route::get('admin/users/{id}/edit', 'UserController@edit');*/
+//Route::get('admin/user/status/{id}', 'RegistrationController@user_active_Inactive');
+//Route::resource('admin/users', 'RegistrationController');
+
+
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/home1', 'HomeController@index')->name('home');
 Route::get('/irshad27', 'HomeController@irshad27')->name('irshad27');
