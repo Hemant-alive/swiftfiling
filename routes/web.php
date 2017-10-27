@@ -40,6 +40,4 @@ Route::get('/test', 'HomeController@test')->name('test');
 
 
 
-
-
 Route::get('/irshad27', 'HomeController@irshad27')->name('irshad27');
