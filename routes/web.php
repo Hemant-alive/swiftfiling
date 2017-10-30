@@ -37,3 +37,5 @@ Route::get('admin/user/status/{id}', 'UserController@changeStatus');
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/home1', 'HomeController@index')->name('home');
+Route::get('/home2', 'HomeController@index')->name('home');
+Route::get('/home21', 'HomeController@index')->name('home');
