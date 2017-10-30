@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\UserStoreRequest;
+use App\Http\Requests\UserUpdateRequest;
 use App\User;
 use Hash;
-use Illuminate\Support\Facades\DB;
+//use Illuminate\Support\Facades\DB;
 class UserController extends Controller
 {
     /**
@@ -51,23 +52,7 @@ class UserController extends Controller
         ]);
 
         $user->save();
-        /*$user = array(
-          'user_type_id' => 2,
-          'first_name' => $request->input('firstName'),
-          'last_name' => $request->input('lastName'),
-          'mobile_number' => $request->input('mobile'),
-          'email' => $request->input('email'),
-          //'remember_token' => User::get
-          //'password' =>  Hash::make("'".$request->input('password')."'")
-          'password' =>  bcrypt($request->input('password')),
-          //'created_at' => 'NOW()'
-        );*/
-        //echo '<pre>';print_r($user);
-        //return $request->get('firstName');
-
-        
-       /* DB::table('users')->insert($user);*/
-        return redirect()->back()->with('message', 'Record added!');
+        return redirect()->back()->with('success', 'Record added successfully!');
     }
 
     /**
@@ -92,7 +77,6 @@ class UserController extends Controller
         $user = User::find($id);
         //return $user;
         return view('admin.user.edit', compact('user','id'));
-        //return view('admin.user.edit', compact('user'));
     }
 
     /**
@@ -102,16 +86,16 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        $user = User::find($id);
-        $user->first_name = $request->get('firstName');
-        $user->first_name = $request->get('lastName');
-        $user->first_name = $request->get('mobile');
-        $user->first_name = $request->get('email');
+    public function update(UserUpdateRequest $request)
+    {//print_r($request->get($request));die;
+        $user = User::find($request->input('id'));
+        $user->first_name = $request->input('firstName');
+        $user->last_name = $request->input('lastName');
+        $user->mobile_number = $request->input('mobile');
+        $user->email = $request->input('email');
         $user->save();
         //return redirect('/crud');
-        return redirect()->back()->with('message', 'Record updated!');
+        return redirect()->back()->with('success', 'Record updated!');
     }
 
     /**
@@ -122,6 +106,31 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+    	$user = User::find($id);
+    	if($user->id == $id && $user->user_type_id == 1)
+    		return redirect()->back()->with('error', 'Admin account cannot be deleted!');
+      	$user->delete();
+      	return redirect()->back()->with('success', 'Record deleted successfully!');
     }
+
+    public function changeStatus($id)
+    {
+    	$user = User::find($id);
+    	if($user->id == $id && $user->user_type_id == 1)
+    		return redirect()->back()->with('error', 'Admin account cannot be deactivated!');
+        $id = explode('_', $id);
+        $user_id = $id[0];
+        $status = $id[1];
+        if($status == 1){
+        	$changed_status = 0;
+        }if($status == 0){
+        	$changed_status = 1;
+        }
+
+        $user = User::find($user_id);
+        $user->status = $changed_status;
+        $user->save();
+        return redirect()->back()->with('success', 'Record updated!');
+    }
+
 }

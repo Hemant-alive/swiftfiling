@@ -7,62 +7,69 @@
     <div id="page-wrapper">
         <div class="graphs">
             <h3 class="blank1">Update User</h3>
+            <hr>
+            <div class="grid_3 fulldiv">    
+            <div class="col-lg-7">
                 <div class="tab-content">
-                    {{--    Error Display--}}
-                        @if($errors->any())
-                        <ul class="alert">
-                            @foreach($errors->all() as $error)
-                            <li style="color:red;"><b>{{ $error }}</b></li>
-                            @endforeach
-                        </ul>
-                        @endif
-                    {{--    Error Display ends--}}
+                   <!-- msssssg -->
+                   @if(Session::has('success'))
+                    <div class="alert alert-success"> <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> {{Session::get('success')}} </div> 
+                    @endif
+                    @if(Session::has('error'))
+                    <div class="alert alert-danger"> <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> {{Session::get('error')}} </div> 
+                    @endif
                     <div class="tab-pane active" id="horizontal-form">
-                        <form method="post" action="{{action('UserController@update', $id)}}" class="horizontal">
+                        <form method="post" action="{{url('admin/update')}}" class="form-horizontal" id="editUser">
                             {{csrf_field()}}
-                        <!-- {!! Form::model($user,['route'=>['admin.users.update',$user->id], 'method'=>'patch','class'=>'form-horizontal'])  !!} -->
-                       
-                            
+                            <input type="hidden" name="id" value="{{$id}}">
+                        
                             <div id="msgStatus"></div>
                              
                             <div class="form-group">
                                 <label for="name" class="col-sm-2 control-label">First Name</label>
                                 <div class="col-sm-8">
                                     <input type="text" class="form-control1" id="firstName" name="firstName" value="{{$user->first_name}}">
-                                     <!-- {!! Form :: text('firstName',$user->first_name,['class'=>'form-control1', 'id'=>'firstname'])  !!} -->
+                                    @if ($errors->has('firstName'))
+                                        <div class="error">{{ $errors->first('firstName') }}</div>
+                                    @endif
                                 </div>                                
                             </div>
                             <div class="form-group">
                                 <label for="name" class="col-sm-2 control-label">Last Name</label>
                                 <div class="col-sm-8">
                                     <input type="text" class="form-control1" id="lastName" name="lastName" value="{{$user->last_name}}">
-                                    <!-- {!! Form :: text('lastName',$user->last_name,['class'=>'form-control1', 'id'=>'lastname'])  !!} -->
+                                    @if ($errors->has('lastName'))
+                                        <div class="error">{{ $errors->first('lastName') }}</div>
+                                    @endif
                                 </div>                                
-                            </div>
-                             <div class="form-group">
+                            </div>                           
+                            <div class="form-group">
                                 <label for="name" class="col-sm-2 control-label">Mobile</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control1" id="mobile" name="mobile" value="{{$user->mobile_number}}" readonly>
-                                    <!-- {!! Form :: text('mobile',$user->mobile_number,['class'=>'form-control1', 'id'=>'mobile','readonly'])  !!} -->
+                                    <input type="text" class="form-control1" id="mobile" name="mobile" value="{{$user->mobile_number}}">
+                                    @if ($errors->has('mobile'))
+                                        <div class="error">{{ $errors->first('mobile') }}</div>
+                                    @endif
                                 </div>                                
                             </div>
                             <div class="form-group">
-                				<label class="col-sm-2 control-label">Email</label>
-                				<div class="col-sm-8">
+                                <label class="col-sm-2 control-label">Email</label>
+                                <div class="col-sm-8">
                                     <input type="text" class="form-control1" id="email" name="email" value="{{$user->email}}">
-                                    <!-- {!! Form :: text('email',$user->email,['class'=>'form-control1', 'id'=>'email'])  !!} -->
-                				</div>
-                            </div>                           
-                            
+                                    @if ($errors->has('email'))
+                                        <div class="error">{{ $errors->first('email') }}</div>
+                                    @endif
+                                </div>
+                            </div>
                             <div class="col-sm-8 col-sm-offset-2">
                                 <button type="submit" class="btn-success btn" id="user">Update User</button>
-                                <!-- {!! Form :: submit("Update User",["class"=>"btn-success btn",'id'=>'user']) !!} -->
                             </div>
-                        <!-- {!! Form::close() !!} -->
                         </form>
 					
                     </div>
                 </div>
+            </div>
+            </div>
         </div>
     </div>
 @endsection

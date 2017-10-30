@@ -39,8 +39,13 @@
                 <div class="panel-heading">
                     <h2>Users List</h2>
                     <div class="panel-ctrls"><span class="button-icon has-bg"><i class="ti ti-angle-down"></i></span></div>
-                </div> @if(Session::has('success'))
-                <div class="alert alert-success"> <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> {{Session::get('success')}} </div> @endif
+                </div> 
+                @if(Session::has('success'))
+                <div class="alert alert-success"> <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> {{Session::get('success')}} </div> 
+                @endif
+                @if(Session::has('error'))
+                <div class="alert alert-danger"> <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> {{Session::get('error')}} </div> 
+                @endif
                 <div class="panel-body no-padding" style="display: block;">
                     <table class="table table-striped">
                         <thead>
