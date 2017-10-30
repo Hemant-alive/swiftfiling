@@ -10,8 +10,12 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+<<<<<<< HEAD
 //irshad master
 
+=======
+//irshad
+>>>>>>> irshad
 Route::get('/', function () {
     return view('welcome');
 });
@@ -25,6 +29,7 @@ Route::get('/admin', function () {
 Auth::routes();
 Route::get('admin/dashboard', 'admin\DashboardController@index');
 
+<<<<<<< HEAD
 # Admin Panel Routes
 Route::get('admin/users/create', 'UserController@create');
 Route::post('admin/store', 'UserController@store');
@@ -38,3 +43,9 @@ Route::get('admin/userList', 'UserController@index');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/home1', 'HomeController@index')->name('home');
 Route::get('/irshad30', 'HomeController@irshad27')->name('irshad30');
+=======
+//
+Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home1', 'HomeController@index')->name('home');
+Route::get('/irshad27', 'HomeController@irshad27')->name('irshad27');
+>>>>>>> irshad
