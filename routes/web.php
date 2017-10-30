@@ -37,4 +37,4 @@ Route::get('admin/userList', 'UserController@index');
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/home1', 'HomeController@index')->name('home');
-Route::get('/irshad28', 'HomeController@irshad27')->name('irshad27');
+Route::get('/irshad30', 'HomeController@irshad27')->name('irshad30');
