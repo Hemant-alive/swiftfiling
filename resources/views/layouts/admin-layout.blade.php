@@ -231,8 +231,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 </div>
 
         <!-- //header-ends -->
+        <div style="margin-top:20px;"></div>
 
-    @yield('body')
+        @yield('body')
 
  
 
