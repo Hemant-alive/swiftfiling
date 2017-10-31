@@ -2,7 +2,17 @@
 @section('body')
 <div id="page-wrapper">
     <div class="graphs">
-        <h3 class="blank1">Users</h3>
+        <div class="row">
+            <div class="col-sm-4">
+                 <h3 class="blank1">Users</h3>
+             </div>
+            <div class="col-sm-2 float-right">
+                <a href="{{ url('admin/users/create') }}" class="btn btn-primary min-btn" title="Refresh">
+                <i class="fa fa-user"></i>
+                 <span>New User</span>
+                </a>
+            </div>
+        </div>
         <hr>
         <div class="grid_3 fulldiv pd10 m0">
             <div class="row">
@@ -30,6 +40,7 @@
                             <i class="fa fa-refresh"></i>
                         </a>
                     </div>
+                   
                 </form>
             </div>
         </div>
