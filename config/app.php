@@ -178,6 +178,9 @@ return [
         App\Providers\RouteServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
 
+         // Ckeditor,
+        Unisharp\Ckeditor\ServiceProvider::class,
+
     ],
 
     /*

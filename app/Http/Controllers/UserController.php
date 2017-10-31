@@ -7,6 +7,7 @@ use App\Http\Requests\UserStoreRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\User;
 use Hash;
+
 //use Illuminate\Support\Facades\DB;
 class UserController extends Controller
 {
@@ -64,6 +65,7 @@ class UserController extends Controller
     public function show($id)
     {
         //
+
     }
 
     /**

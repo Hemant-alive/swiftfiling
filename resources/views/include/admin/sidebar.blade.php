@@ -25,8 +25,12 @@
                 </ul> -->
             </li>
             <li class="menu-list-s">
-                <a href="{{ url('admin/userList') }}"><i class="fa fa-tasks"></i>
+                <a href="{{ url('admin/plans') }}"><i class="fa fa-tasks"></i>
                 <span>Plans</span></a>
+            </li>
+            <li class="menu-list-s">
+                <a href="{{ url('admin/package') }}"><i class="fa fa-tasks"></i>
+                <span>Package</span></a>
             </li>
         </ul>
     </div>

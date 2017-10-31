@@ -16,3 +16,7 @@
 {!! Html::script('public/admin/js/additional-methods.min.js') !!} 
 
 {!! Html::script('public/user/js/pusher.min.js') !!} 
+
+{!! Html::script('vendor/unisharp/laravel-ckeditor/ckeditor.js') !!} 
+
+{!! Html::script('vendor/unisharp/laravel-ckeditor/adapters/jquery.js') !!} 

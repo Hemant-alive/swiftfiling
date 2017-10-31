@@ -22,6 +22,7 @@ Route::get('/', function () {
 Route::get('/admin', function () {
     return view('admin/login');
 });
+
 Auth::routes();
 Route::get('admin/dashboard', 'admin\DashboardController@index');
 
@@ -33,10 +34,10 @@ Route::get('admin/userList', 'UserController@index');
 Route::get('admin/users/{id}/edit', 'UserController@edit');
 Route::get('admin/users/{id}/delete', 'UserController@destroy');
 Route::get('admin/user/status/{id}', 'UserController@changeStatus');
-//Route::resource('admin/users', 'RegistrationController');
 
-
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/home1', 'HomeController@index')->name('home');
-Route::get('/irshad30', 'HomeController@irshad27')->name('irshad30');
-Route::get('/irshad27', 'HomeController@irshad27')->name('irshad27');
+//Route::resource('admin/plans', 'PlansController');
+Route::resource('admin/plans', 'PlansController', ['only' => [
+    'create', 'store', 'update','index'
+]]);
+Route::get('admin/plans/{id}/delete', 'PlansController@destroy');
+Route::get('admin/plans/{id}', 'PlansController@show');

@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
+use App\Http\Requests\PlanStoreRequest;
+use App\Http\Requests\UserUpdateRequest;
+use App\Plan;
 
 class plansController extends Controller
 {
@@ -14,6 +16,8 @@ class plansController extends Controller
     public function index()
     {
         //
+        $plans = Plan::all();
+        return view('admin.plans.index', compact('plans'));
     }
 
     /**
@@ -24,6 +28,7 @@ class plansController extends Controller
     public function create()
     {
         //
+        return view('admin.plans.create');
     }
 
     /**
@@ -34,7 +39,16 @@ class plansController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $plans = new Plan([
+          'title' => $request->input('title'),
+          'description' => $request->input('description'),
+          'status' => 1,
+        ]);
+
+        $plans->save();
+        return redirect()->back()->with('success', 'Record added successfully!');
+
     }
 
     /**
@@ -46,6 +60,8 @@ class plansController extends Controller
     public function show($id)
     {
         //
+        $plans = Plan::find($id);
+        return view('admin.plans.edit', compact('plans','id'));
     }
 
     /**
@@ -57,6 +73,8 @@ class plansController extends Controller
     public function edit($id)
     {
         //
+        echo $id;
+        die;
     }
 
     /**
@@ -80,5 +98,10 @@ class plansController extends Controller
     public function destroy($id)
     {
         //
+        $plans = Plan::find($id);
+        /*if($user->user_type_id == 1)
+            return redirect()->back()->with('error', 'Admin account cannot be deleted!');*/
+        $plans->delete();
+        return redirect()->back()->with('success', 'Record deleted successfully!');
     }
 }

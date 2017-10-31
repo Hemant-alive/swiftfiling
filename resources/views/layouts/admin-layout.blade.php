@@ -25,8 +25,8 @@
 
    </section>
     <!-- footer start-->
-    @include('include.admin.footer')
-     <!-- //footer end-->
+        @include('include.admin.footer')
+    <!-- //footer end-->
 
     @yield('script')
 
