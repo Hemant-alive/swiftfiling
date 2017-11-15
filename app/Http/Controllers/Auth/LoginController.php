@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -27,6 +28,7 @@ class LoginController extends Controller
      * @var string
      */
     protected $redirectTo = '/admin/dashboard';
+    protected $redirectTologin = '/admin/login';
 
     /**
      * Create a new controller instance.
@@ -46,4 +48,20 @@ class LoginController extends Controller
             'status' => '1',
         ];
     }
+	
+	public function authenticate(Request $request)
+    {
+        if (Auth::attempt(['email' => $request->{$this->username()}, 'password' => $request->password])){
+            return redirect()->intended($this->redirectTo);
+        }else{
+
+          return redirect()->back()->with('error', 'These credentials do not match our records.');
+        }
+    }
+
+     public function logout(){
+        Auth::logout();
+        return redirect()->intended($this->redirectTologin);
+    }
+	
 }

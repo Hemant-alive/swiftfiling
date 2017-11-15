@@ -1,11 +1,9 @@
 <?php
 
 namespace App\Http\Controllers\admin;
-
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Http\Requests;
 use Auth;
 use App\User;
 use Session;

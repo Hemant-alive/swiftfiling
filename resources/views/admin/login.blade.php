@@ -60,6 +60,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                             </ul>
                         </div>
                     @endif
+                    @if(Session::has('error'))
+                     <div class="alert alert-danger"> <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> {{Session::get('error')}} </div> 
+                    @endif
                         {!! Form::open(array('url'=>route('login'),'id'=>'login-form')) !!}
                             <div class="log-input">
                                 <div class="log-input-left">

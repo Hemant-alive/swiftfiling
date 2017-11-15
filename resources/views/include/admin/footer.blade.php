@@ -20,3 +20,7 @@
 {!! Html::script('vendor/unisharp/laravel-ckeditor/ckeditor.js') !!} 
 
 {!! Html::script('vendor/unisharp/laravel-ckeditor/adapters/jquery.js') !!} 
+<script>
+    $('textarea').ckeditor();
+    // $('.textarea').ckeditor(); // if class is prefered.
+</script>

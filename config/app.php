@@ -177,9 +177,14 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
+		//payumoney
+        Softon\Indipay\IndipayServiceProvider::class,
 
          // Ckeditor,
-        Unisharp\Ckeditor\ServiceProvider::class,
+        //Unisharp\Ckeditor\ServiceProvider::class,
+        //paypal
+        Srmklive\PayPal\Providers\PayPalServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
 
     ],
 
@@ -231,6 +236,12 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+		'Helper' => App\Helpers\Helper::class,
+		//paypal
+        'PayPal' => Srmklive\PayPal\Facades\PayPal::class,
+        //payumoney
+        'Indipay' => Softon\Indipay\Facades\Indipay::class,
+        'PDF' => Barryvdh\DomPDF\Facade::class,
 
     ],
 

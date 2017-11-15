@@ -22,65 +22,76 @@
                             {{csrf_field()}}
                             
                             <div id="msgStatus"></div>
-                             <!-- <div class="form-group" style="display:none">
-                                     {!! Form :: text('userType','3',['class'=>'form-control1', 'id'=>'userType'])  !!}                                                              
-                            </div> -->
                             <div class="form-group">
-                                <label for="name" class="col-sm-2 control-label">First Name</label>
+                                <label for="role_id" class="col-sm-2 control-label">User Role</label>
+                                <div class="col-sm-8"> 
+                                    <select name="role_id" id="role_id" class="form-control select2">
+                                        <option value="">Select role</option>
+                                        @foreach($roles as $role)
+                                        <option value="{{$role->id}}" {{old( 'role_id')==$role->id ? 'selected' : ''}}>{{$role->role}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="firstName" class="col-sm-2 control-label">First Name</label>
                                 <div class="col-sm-8">
-                                    <input type="text" name="firstName" id="firstName" class="form-control1" value="{{old('firsName')}}">
+                                    <input type="text" name="firstName" id="firstName" class="form-control" value="{{old('firstName')}}">
                                      @if ($errors->has('firstName'))
-                                        <div class="error">{{ $errors->first('firstName') }}</div>
+                                        <div class="error small">{{ $errors->first('firstName') }}</div>
                                      @endif
                                 </div>                                
                             </div>
                             <div class="form-group">
-                                <label for="name" class="col-sm-2 control-label">Last Name</label>
+                                <label for="lastName" class="col-sm-2 control-label">Last Name</label>
                                 <div class="col-sm-8">
-                                    <input type="text" name="lastName" id="lastName" class="form-control1" value="{{old('lastName')}}">
+                                    <input type="text" name="lastName" id="lastName" class="form-control" value="{{old('lastName')}}">
                                     @if ($errors->has('lastName'))
-                                        <div class="error">{{ $errors->first('lastName') }}</div>
+                                        <div class="error small">{{ $errors->first('lastName') }}</div>
                                     @endif
                                 </div>                                
                             </div>
                              <div class="form-group">
-                                <label for="name" class="col-sm-2 control-label">Mobile</label>
+                                <label for="mobile" class="col-sm-2 control-label">Mobile</label>
                                 <div class="col-sm-8">
-                                    <input type="text" name="mobile" id="mobile" class="form-control1" value="{{old('mobile')}}">
+                                    <input type="text" maxlength="10" name="mobile" id="mobile" class="form-control" value="{{old('mobile')}}">
                                     @if ($errors->has('mobile'))
-                                        <div class="error">{{ $errors->first('mobile') }}</div>
+                                        <div class="error small">{{ $errors->first('mobile') }}</div>
                                     @endif
                                 </div>                                
                             </div>
                             <div class="form-group">
-				                <label class="col-sm-2 control-label">Email</label>
+				                <label for="email" class="col-sm-2 control-label">Email</label>
 				                <div class="col-sm-8">
-                                    <input type="text" name="email" id="email" class="form-control1" value="{{old('email')}}">
+                                    <input type="text" name="email" id="email" class="form-control" value="{{old('email')}}">
                                     @if ($errors->has('email'))
-                                        <div class="error">{{ $errors->first('email') }}</div>
+                                        <div class="error small">{{ $errors->first('email') }}</div>
                                     @endif
 				                </div>
                             </div>                            
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">Password</label>
+                                <label for="password" class="col-sm-2 control-label">Password</label>
                                 <div class="col-sm-8">
-                                    <input type="password" name="password" id="password" class="form-control1" value="">
+                                    <input type="password" name="password" id="password" class="form-control" value="">
                                     @if ($errors->has('password'))
-                                        <div class="error">{{ $errors->first('password') }}</div>
+                                        <div class="error small">{{ $errors->first('password') }}</div>
                                     @endif
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">Confirm Password</label>
+                                <label for="password_confirmation" class="col-sm-2 control-label">Confirm Password</label>
                                 <div class="col-sm-8">
-                                    <input type="password" name="password_confirmation" id="password_confirmation" class="form-control1" value="">
+                                    <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" value="">
                                     @if ($errors->has('password_confirmation'))
-                                        <div class="error">{{ $errors->first('password_confirmation') }}</div>
+                                        <div class="error small">{{ $errors->first('password_confirmation') }}</div>
                                     @endif
                                 </div>
                             </div>
                             <div class="col-sm-8 col-sm-offset-2">
-                                <input type="submit" name="submit" id="user" class="btn-success btn" value="Save Usser">
+                                <button style="padding: 8px;margin-right: 5px;" class="btn btn-primary"  onclick="history.back()">
+                                    <i class="fa fa-toggle-left"></i> <span>Back</span>
+                                </button>
+                                <input type="submit" name="submit" id="user" class="btn-success btn" value="Save User">
                             </div>
                         </form>
 					
@@ -96,27 +107,32 @@
 @section('script')
 <script>
 
-    
-    /*$.validator.addMethod("uniqueMobile", function(value, element) {
+    $.validator.addMethod("uniqueMobile", function(value, element) {
          var isSuccess = false;
             $.ajax({
-                type: "GET",
-                url: '{{url('admin/mobileCheck')}}',
-                data: "checkMobile="+value,
+                type: "POST",
+                url: '{{url('admin/mobilecheck')}}',
+                data: {"_token": "{{ csrf_token() }}","contact": value},
                 async: false,
                 //dataType:"html",
                 success: function(msg)
                 { 
                     //If username exists, set response to true
-                    //response = (msg === 'true') ? true : false;
-                    isSuccess = msg === "false" ?  false : true;
-                    
+                    isSuccess = msg === 'true' ? true : false;
                 }
              });
             return isSuccess;
         },
-        "Username is Already Taken"
-    );*/
+        "Mobile number is already registered"
+    );
+
+    /*jQuery.validator.addMethod("selectnic", function(value, element){
+        if (/^[0-9]{9}[vVxX]$/.test(value)) {
+            return false;  // FAIL validation when REGEX matches
+        } else {
+            return true;   // PASS validation otherwise
+        };
+    }, "wrong nic number");*/
   
     
 $('#newUser').validate({
@@ -142,11 +158,13 @@ $('#newUser').validate({
                 },
 
                 password:{
-                    required : true
+                    required : true,
+                    minlength:6
                 },
 
                 password_confirmation:{
-                    required : true
+                    required : true,
+                    minlength:6
                    // equalTo: "#password"
                 }
             },

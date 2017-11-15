@@ -8,21 +8,23 @@
         <div class="graphs">
             <h3 class="blank1">New Plan</h3>
             <hr>
-        <form method="post" action="{{url('admin/plans')}}" class="form-horizontal" id="NewPlans">
+
+        {!! Form::open(array('url' => 'admin/plans/','method' => 'post','class'=>'form-horizontal','id'=>'NewPlans')) !!}
+
         {{csrf_field()}}
             <div class="grid_3 fulldiv pd10 m0">
                 <div class="row">
-                    <div class="col-sm-2 col-sm-offset-8"> 
-                        <button type="submit" name="submit" value="save_close" class="btn  btn-primary min-btn" type="button"><i class="fa fa-times"></i> Save </button>
-
+                    <div class="pull-right pd10"> 
+                        <a href="{{ url('admin/plans') }}" class="btn  btn-danger min-btn"><i class="fa fa-times"></i>
+                        <span>Close</span></a>
                     </div>
-                    <div class="col-sm-2"> 
-                        <button type="submit" name="submit" value="save_new" class="btn  btn-primary min-btn" type="button"><i class="fa fa-plus"></i> Save & Close </button>
+                    <div class="pull-right pd10"> 
+                      <button type="submit" name="submit" value="save_close" class="btn  btn-primary min-btn" type="button"><i class="fa fa-times"></i> Save </button>
                     </div>
                 </div>
             </div>
             <div class="grid_3 fulldiv">    
-            <div class="col-lg-7">
+            <div class="col-lg-12">
                 <div class="tab-content">
                     @if(Session::has('success'))
                     <div class="alert alert-success"> <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> {{Session::get('success')}} </div> 
@@ -34,12 +36,12 @@
                             
                             <div id="msgStatus"></div>
                              <!-- <div class="form-group" style="display:none">
-                                     {!! Form :: text('userType','3',['class'=>'form-control1', 'id'=>'userType'])  !!}                                                              
+                                     {!! Form :: text('userType','3',['class'=>'form-control', 'id'=>'userType'])  !!}                                                              
                             </div> -->
                             <div class="form-group">
                                 <label for="name" class="col-sm-2 control-label">Title</label>
                                 <div class="col-sm-8">
-                                    <input type="text" name="title" id="title" class="form-control1" value="{{old('title')}}">
+                                    <input type="text" name="title" id="title" class="form-control" value="{{old('title')}}">
                                      @if ($errors->has('title'))
                                         <div class="error">{{ $errors->first('title') }}</div>
                                      @endif
@@ -54,105 +56,44 @@
                                     @endif
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label for="name" class="col-sm-2 control-label">Status</label>
+                                <div class="col-sm-8">
+                                <select name="status" id="status" class="form-control select2">
+                                    <option value="">Select Status</option>
+                                    <option value="1" {{old( 'status')=='1' ? 'selected' : ''}}>Active</option>
+                                    <option value="0" {{old( 'status')=='0' ? 'selected' : ''}}>In Active</option>
+                                </select>
+                                </div>
+                            </div>
                     </div>
                 </div>
             </div>
             </div>
-        </form>         
+        {!! Form::close() !!}     
         </div>
     </div>
 @endsection
 
 @section('script')
-    <script>
-        $('textarea').ckeditor();
-        // $('.textarea').ckeditor(); // if class is prefered.
-    </script>
-<script>
 
+<script type="text/javascript">
     
-    /*$.validator.addMethod("uniqueMobile", function(value, element) {
-         var isSuccess = false;
-            $.ajax({
-                type: "GET",
-                url: '{{url('admin/mobileCheck')}}',
-                data: "checkMobile="+value,
-                async: false,
-                //dataType:"html",
-                success: function(msg)
-                { 
-                    //If username exists, set response to true
-                    //response = (msg === 'true') ? true : false;
-                    isSuccess = msg === "false" ?  false : true;
-                    
-                }
-             });
-            return isSuccess;
-        },
-        "Username is Already Taken"
-    );*/
-  
-    
-$('#newUser').validate({
-
+$('#NewPlans').validate({
             rules: {
-                firstName:{
+                title:{
                     required : true,
-                    minlength:2
+                    minlength:3
                 },
-                lastName:{
+                description:{
                     required : true,
-                    minlength:2
+                    minlength:3
                 },
-                email:{
+                status:{
                     required : true,
-                    email : true
                 },
-
-                mobile:{
-                    required : true,
-                    minlength:10,
-                    uniqueMobile: true
-                },
-
-                password:{
-                    required : true
-                },
-
-                password_confirmation:{
-                    required : true
-                   // equalTo: "#password"
-                }
             },
-
-            messages: {
-                
-                firstName :{
-                    required : "Enter your First name",
-                    minlength : 'First Name should be 2 digits'
-                },
-                lastName :{
-                    required : "Enter your Last name",
-                    minlength : 'Last Name should be 2 digits'
-                },
-                email :{
-                    required : "Enter your email",
-                    email : "Enter Valid email"
-                },
-                mobile :{
-                    required : 'Enter your Mobile Number',
-                    minlength : 'Mobile Number should be 10 digits'
-                },                
-                password :{
-                    required : "Enter your Password",
-                },                
-                password_confirmation :{
-                    required : "Please re-enter password",
-                }
-            }
-            
-           
-
         });
 </script>
+
 @endsection

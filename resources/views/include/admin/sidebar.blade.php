@@ -12,25 +12,39 @@
         <!--sidebar nav start-->
         <ul class="nav nav-pills nav-stacked custom-nav">
 
-            <li class="active">
-                <a href="{{ url('admin/dashboard') }}"><i class="fa fa-dashboard"></i><span>Dashboard</span></a>
+            <li class="{{  Request::segment(2)=== 'dashboard'?'active':''}}">
+                <a href="{{ Request::segment(2) }}"><i class="fa fa-dashboard"></i><span>Dashboard</span></a>
             </li>
 
-            <li class="menu-list-s">
-                <a href="{{ url('admin/userList') }}"><i class="fa fa-user"></i>
+            <li class="menu-list-s {{ Request::segment(2) === 'user'?'active':''}}">
+                <a href="{{ url('admin/user') }}"><i class="fa fa-user"></i>
                 <span>User</span></a>
-                <!-- <ul class="sub-menu-list">
-                    <li><a href="{{ url('admin/users/create') }}">New User</a> </li>
-                    <li><a href="{{ url('admin/userList') }}">User List</a></li>
-                </ul> -->
             </li>
-            <li class="menu-list-s">
+           <li class="menu-list-s {{ Request::segment(2) === 'plans'?'active':''}}">
                 <a href="{{ url('admin/plans') }}"><i class="fa fa-tasks"></i>
                 <span>Plans</span></a>
             </li>
-            <li class="menu-list-s">
+            <li class="menu-list-s {{ Request::segment(2) === 'package'?'active':''}}">
                 <a href="{{ url('admin/package') }}"><i class="fa fa-tasks"></i>
                 <span>Package</span></a>
+            </li>
+             <li class="menu-list-s {{ Request::segment(2) === 'additional-item'?'active':''}}">
+                <a href="{{ url('admin/additional-item') }}"><i class="fa fa-tasks"></i>
+                <span>Additional Items</span></a>
+            </li>
+            <li class="menu-list {{ Request::segment(2) === 'faq'?'active':''}}">
+
+                        <a href="#"><i class="fa fa-question-circle"></i>
+                        <span>Faq</span></a>
+
+                        <ul class="sub-menu-list">
+
+                            <li class="{{ Request::segment(3) === 'category'?'active':''}}"><a href="{{ url('admin/faq/category') }}">Faq Category</a> </li>
+
+                            <li class="{{ Request::segment(3) === 'question'?'active':''}}"><a href="{{ url('admin/faq/question') }}">Faq Questions</a></li>
+
+                        </ul>
+
             </li>
         </ul>
     </div>
